@@ -3,3 +3,6 @@ __pycache__/
 lib/
 .DS_Store
 output/
+contexto.txt
+agents.yaml
+tasks.yaml

@@ -11,11 +11,11 @@ class VdiCrew:
 
     # Configuración del LLM con control de tokens
     llm = LLM(
-        model="gemini/gemini-3.5-flash", # O la versión habilitada en tu API
+        model="gemini/gemini-3.5-flash",  # O la versión habilitada en tu API
         temperature=0.2,
-        max_tokens=4000,                  # Límite máximo de tokens por respuesta del agente
-        max_retries=4,                  # Límite de solicitudes por agente
-        timeout=120,               # Tiempo máximo de espera por solicitud
+        max_tokens=5000,                  # Límite máximo de tokens por respuesta del agente
+        max_retries=4,                    # Límite de solicitudes por agente
+        timeout=120,                      # Tiempo máximo de espera por solicitud
     )
 
     # --- AGENTES VDI 2206 ---
@@ -34,14 +34,6 @@ class VdiCrew:
     @agent
     def software(self) -> Agent:
         return Agent(config=self.agents_config["software"], llm=self.llm, verbose=True)
-
-    @agent
-    def mantenimiento(self) -> Agent:
-        return Agent(config=self.agents_config["mantenimiento"], llm=self.llm, verbose=True)
-
-    @agent
-    def cliente(self) -> Agent:
-        return Agent(config=self.agents_config["cliente"], llm=self.llm, verbose=True)
 
     # --- TAREAS CON SALIDA A ARCHIVOS INDIVIDUALES ---
     @task
@@ -70,20 +62,6 @@ class VdiCrew:
         return Task(
             config=self.tasks_config["software_subsystem_design_task"],
             output_file="output/04_software_architecture.md"
-        )
-
-    @task
-    def maintenance_rams_eval_task(self) -> Task:
-        return Task(
-            config=self.tasks_config["maintenance_rams_eval_task"],
-            output_file="output/05_rams_maintenance.md"
-        )
-
-    @task
-    def client_acceptance_review_task(self) -> Task:
-        return Task(
-            config=self.tasks_config["client_acceptance_review_task"],
-            output_file="output/06_client_acceptance.md"
         )
 
     @task

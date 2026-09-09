@@ -1,74 +1,70 @@
 requirements_ingestion_task:
   description: >
-    Analizar el tipo de proyecto {system_type}, el alcance general {project_scope} y los requerimientos
-    principales {primary_requirements} y el presupuesto {target_cost}. Establecer los límites del sistema mecatrónico o IoT bajo la
-    metodología VDI 2206 y formular la matriz inicial de requerimientos funcionales y restricciones.
+    Analizar el {contexto} del caso industrial. Elaborar el levantamiento de requerimientos
+    (cuantitativos y cualitativos, citando normativas como ISO 12100, ISO 13849, ISO/TS 15066 y
+    directrices ASME), desarrollar el QFD y el PDS del sistema. Generar al menos tres alternativas
+    de solución conceptual con sus diagramas funcionales (arquitectura funcional y caja transparente),
+    y construir la matriz morfológica identificando los parámetros críticos de transporte, agrupación/
+    palletizado, elevación y control.
   expected_output: >
-    Un informe de arquitectura de sistema con la matriz de requerimientos funcionales, restricciones
-    operativas y la delimitación conceptual del proyecto.
+    Un informe con: (1) tabla de requerimientos funcionales y no funcionales con referencias
+    normativas, (2) QFD y PDS, (3) al menos tres alternativas conceptuales descritas con sus
+    diagramas funcionales, y (4) matriz morfológica en formato tabular con justificación de cada
+    opción.
   agent: team_lead
-  output_file: output/01_requirements_and_system.md
+  output_file: output/01_requirements_qfd_morphological.md
 
 mechanical_subsystem_design_task:
   description: >
-    Desarrollar la propuesta conceptual del subsistema mecánico, estructural o de envolvente para {system_type}.
-    Explicar los conceptos mecánicos adoptados para cumplir con {project_scope}, detallando qué mecanismos,
-    sistemas de sujeción, transmisión o disipación se utilizarán. Generar una tabla de BOM Preliminar Mecánico
-    especificando materiales (aleaciones, polímeros, compuestos) y componentes comerciales principales.
+    Sobre la(s) alternativa(s) priorizada(s), desarrollar el diseño de ingeniería del subsistema
+    mecánico según el {contexto}: cálculo de velocidad, carga máxima, tensión y potencia de la
+    cinta transportadora; distribución de peso y estabilidad del pallet; dimensionamiento del
+    mecanismo de agrupación; y cálculos del sistema de elevación (presión, capacidad de carga,
+    velocidad de descenso, redundancias de seguridad). Documentar fórmulas, supuestos y
+    coeficientes de seguridad utilizados. Generar la tabla de BOM Preliminar Mecánico.
   expected_output: >
-    Un reporte técnico del subsistema mecánico que desglose la justificación conceptual de la estructura/mecanismos
-    y presente una tabla BOM preliminar de materiales y componentes.
+    Un informe técnico con los cálculos de ingeniería del subsistema mecánico (transporte,
+    palletizado, elevación), sus fundamentos teóricos y normativos, y una tabla BOM preliminar
+    de materiales y componentes mecánicos comerciales.
   agent: mecanico
-  output_file: output/02_mechanical_subsystem.md
+  output_file: output/02_mechanical_engineering_design.md
 
 electronic_subsystem_design_task:
   description: >
-    Desarrollar la propuesta conceptual del subsistema electrónico, hardware y control para {system_type}.
-    Explicar la arquitectura de instrumentación, sensores, actuadores, etapas de potencia y comunicación
-    para responder a {primary_requirements}. Construir una tabla de BOM Preliminar Electrónico de componentes comerciales.
+    Desarrollar la arquitectura de instrumentación, sensórica, actuación y seguridad del sistema
+    según el {contexto}: sensores de presencia/posición/carga, variadores de frecuencia, válvulas
+    de alivio, dispositivos de parada de emergencia y barreras físicas. Justificar cada selección
+    frente a ISO 13849 e ISO/TS 15066. Construir la tabla de BOM Preliminar Electrónico/Instrumentación.
   expected_output: >
-    Un reporte técnico del subsistema electrónico con el esquema conceptual de hardware/control y la tabla
-    BOM preliminar de componentes electrónicos.
+    Un reporte técnico con el esquema conceptual de instrumentación, actuación y seguridad, su
+    justificación normativa, y la tabla BOM preliminar de componentes electrónicos/instrumentación.
   agent: electronico
-  output_file: output/03_electronic_subsystem.md
+  output_file: output/03_instrumentation_safety_subsystem.md
 
 software_subsystem_design_task:
   description: >
-    Desarrollar la propuesta conceptual de la arquitectura de software o firmware para {system_type}. Explicar
-    la organización modular (procesamiento en el borde, tiempo real, capas de red, HMI/Cloud según aplique)
-    necesaria para {primary_requirements}. Proponer el stack de tecnologías, plataformas y herramientas sugeridas.
-    NO INCLUIR NINGÚN BLOQUE DE CÓDIGO.
+    Definir la arquitectura conceptual de control y supervisión (PLC, SCADA, protocolos de
+    comunicación de campo) que coordina transporte, palletizado y elevación según el {contexto},
+    incluyendo la lógica de interbloqueos de seguridad y detección de anomalías (falla de cinta,
+    sobrecarga, desalineación). NO INCLUIR NINGÚN BLOQUE DE CÓDIGO NI LÓGICA DE ESCALERA.
   expected_output: >
-    Un documento conceptual de arquitectura de software/firmware que describa los módulos del sistema y las
-    tecnologías propuestas, redactado exclusivamente en prosa técnica sin código.
+    Un documento conceptual de arquitectura de control/automatización que describa la jerarquía
+    PLC-SCADA, protocolos de comunicación y lógica de interbloqueos de seguridad, redactado en
+    prosa técnica sin código.
   agent: software
-  output_file: output/04_software_architecture.md
-
-maintenance_rams_eval_task:
-  description: >
-    Evaluar Confiabilidad, Disponibilidad, Mantenibilidad y Seguridad (RAMS) para {system_type} en el marco de
-    {project_scope}. Definir la modularidad para reemplazo rápido de piezas y proponer la estrategia de
-    diagnóstico o monitoreo de condición (PHM).
-  expected_output: >
-    Un reporte RAMS con métricas estimadas y la arquitectura propuesta para el mantenimiento y diagnóstico del sistema.
-  agent: mantenimiento
-  output_file: output/05_rams_maintenance.md
-
-client_acceptance_review_task:
-  description: >
-    Revisar de forma integral las propuestas técnicas entregadas para {system_type} asegurando el cumplimiento
-    de {primary_requirements} y el {target_cost}. Emitir el dictamen de validación, observaciones de usabilidad y solicitudes de cambio.
-  expected_output: >
-    Un reporte de evaluación del cliente con la matriz de revisión, observaciones técnicas y criterios de aceptación.
-  agent: cliente
-  output_file: output/06_client_acceptance.md
+  output_file: output/04_control_automation_architecture.md
 
 design_board_integration_task:
   description: >
-    Sintetizar y consolidar las entregas de todas las disciplinas en el Dossier de Diseño Conceptual VDI 2206
-    final para {system_type}. Resolver conflictos entre dominios y calcular la puntuación ponderada global 
-    del diseño, ademas de verificar el cumplimiento del presupuesto {target_cost}.
+    Evaluar las alternativas de la matriz morfológica mediante matriz Pugh (criterios: costo,
+    tiempo de ciclo, fiabilidad, mantenibilidad, impacto en calidad del producto), seleccionando
+    y justificando la solución final. Consolidar los aportes de todas las disciplinas en el
+    Dossier de Diseño Conceptual y de Ingeniería VDI 2206, verificando cumplimiento presupuestal
+    (según restricciones del {contexto}), trazabilidad de requerimientos, análisis de riesgos y
+    contingencias, y redactar las conclusiones y recomendaciones finales con referencias académicas.
   expected_output: >
-    El expediente final consolidado (Conceptual Design Dossier) en formato Markdown según la norma VDI 2206.
+    El expediente final consolidado en formato Markdown: matriz Pugh con puntuaciones y discusión,
+    dossier técnico integrado de los tres subsistemas, análisis de riesgos, conclusiones,
+    recomendaciones y referencias bibliográficas.
   agent: team_lead
   output_file: output/00_vdi2206_consolidated_dossier.md
